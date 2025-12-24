@@ -19,15 +19,15 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Build Docker image
-      run: docker build -t bulletshopidentityapi.azurecr.io/identity-api:latest .
+      run: docker build -t bulletshopacr.azurecr.io/identity-api:latest .
 
     - name: Push Docker image to ACR
       run: |
-        az acr login --name bulletshopidentityapi
-        docker push bulletshopidentityapi.azurecr.io/identity-api:latest
+        az acr login --name bulletshopacr
+        docker push bulletshopacr.azurecr.io/identity-api:latest
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
         app-name: bulletshop-identity-api
-        images: bulletshopidentityapi.azurecr.io/identity-api:latest
+        images: bulletshopacr.azurecr.io/identity-api:latest
